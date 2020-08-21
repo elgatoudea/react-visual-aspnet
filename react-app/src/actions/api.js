@@ -1,18 +1,17 @@
 import axios from "axios";
 
-const baseUrl ="http://localhost:50750/api/"
+const baseUrl ="http://localhost:51532/api/"
 
 
+export default{
 
-export default {
-
-    dCandidate(url = baseUrl + 'dcandidate/') {
-        return {
+    dCandidate(url = baseUrl + "DPaciente/"){
+        return{
             fetchAll: () => axios.get(url),
-            fetchById: id => axios.get(url + id),
+            fetchById: Id => axios.get(url + Id),
             create: newRecord => axios.post(url, newRecord),
-            update: (id, updateRecord) => axios.put(url + id, updateRecord),
-            delete: id => axios.delete(url + id)
+            update: (Id, updateRecord) => axios.put(url + Id.updateRecord),
+            delete: Id => axios.delete(url + Id)
         }
     }
 }
