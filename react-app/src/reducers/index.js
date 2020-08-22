@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { dPaciente } from "./dPaciente";
+import { dCandidate } from "./dCandidate";
 
 export const reducers = combineReducers({
-    dPaciente
+    dCandidate
 })

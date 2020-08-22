@@ -17,7 +17,7 @@ namespace WebApi2.Migrations
                     Apellidos = table.Column<string>(type: "nvarchar(50)", nullable: true),
                     TipoDocumento = table.Column<string>(type: "nvarchar(3)", nullable: true),
                     NumDocumento = table.Column<string>(type: "nvarchar(16)", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "date", nullable: false),
+                    FechaNacimiento = table.Column<string>(type: "nvarchar(16)", nullable: false),
                     ContactoEstrecho1 = table.Column<string>(type: "nvarchar(3)", nullable: true),
                     Viajo = table.Column<string>(type: "nvarchar(3)", nullable: true),
                     ViajeNivel = table.Column<string>(type: "nvarchar(3)", nullable: true),

@@ -37,8 +37,8 @@ namespace WebApi2.Migrations
                     b.Property<string>("Destino")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("date");
+                    b.Property<string>("FechaNacimiento")
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(50)");

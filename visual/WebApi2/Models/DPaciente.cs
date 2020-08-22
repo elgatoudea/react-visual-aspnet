@@ -24,8 +24,8 @@ namespace WebApi2.Models
         [Column(TypeName = "nvarchar(16)")]
         public string NumDocumento { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime FechaNacimiento { get; set; }
+        [Column(TypeName = "nvarchar(16)")]
+        public string FechaNacimiento { get; set; }
 
         [Column(TypeName = "nvarchar(3)")]
         public string ContactoEstrecho1 { get; set; }

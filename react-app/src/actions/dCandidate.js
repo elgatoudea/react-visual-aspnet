@@ -8,7 +8,8 @@ export const ACTION_TYPES = {
 }
 
 const formateData = data => ({
-    ...data
+    ...data,
+    age: parseInt(data.age ? data.age : 0)
 })
 
 export const fetchAll = () => dispatch => {

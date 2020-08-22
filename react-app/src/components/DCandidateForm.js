@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Grid, TextField, withStyles, FormControl, InputLabel, Select, MenuItem, Button, FormHelperText } from "@material-ui/core";
 import useForm from "./useForm";
 import { connect } from "react-redux";
-import * as actions from "../actions/dPaciente";
+import * as actions from "../actions/dCandidate";
 import { useToasts } from "react-toast-notifications";
 
 const styles = theme => ({
     root: {
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            minWidth: 250,
+            minWidth: 560,
         }
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 250,
+        minWidth: 560,
     },
     smMargin: {
         margin: theme.spacing(1)
@@ -26,11 +26,12 @@ const initialFieldValues = {
     apellidos: "",
     tipoDocumento: "",
     numDocumento: "",
-    fechaNacimiento: "0001-01-01T00:00:00",
+    fechaNacimiento: "1991-05-05T00:00:00",
     contactoEstrecho1: "",
     viajo: "",
     viajeNivel: "",
     destino: ""
+
 }
 
 const DCandidateForm = ({ classes, ...props }) => {
@@ -38,6 +39,8 @@ const DCandidateForm = ({ classes, ...props }) => {
     //toast msg.
     const { addToast } = useToasts()
 
+    //validate()
+    //validate({fullName:'jenny'})
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('nombres' in fieldValues)
@@ -58,8 +61,7 @@ const DCandidateForm = ({ classes, ...props }) => {
             temp.viajeNivel = fieldValues.viajeNivel ? "" : "Este texto es requerido."
         if ('destino' in fieldValues)
             temp.destino = fieldValues.destino ? "" : "Este texto es requerido."
-        //if ('apellidos' in fieldValues)
-        //  temp.apellidos = (/^$|.+@.+..+/).test(fieldValues.apellidos) ? "" : "apellidos is not valid."
+
         setErrors({
             ...temp
         })
@@ -110,7 +112,7 @@ const DCandidateForm = ({ classes, ...props }) => {
     return (
         <form autoComplete="off" noValidate className={classes.root} onSubmit={handleSubmit}>
             <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={0}>
                     <TextField
                         name="nombres"
                         variant="outlined"
@@ -127,6 +129,7 @@ const DCandidateForm = ({ classes, ...props }) => {
                         onChange={handleInputChange}
                         {...(errors.apellidos && { error: true, helperText: errors.apellidos })}
                     />
+
                     <FormControl variant="outlined"
                         className={classes.formControl}
                         {...(errors.tipoDocumento && { error: true })}
@@ -145,6 +148,7 @@ const DCandidateForm = ({ classes, ...props }) => {
                         </Select>
                         {errors.tipoDocumento && <FormHelperText>{errors.tipoDocumento}</FormHelperText>}
                     </FormControl>
+
                     <TextField
                         name="numDocumento"
                         variant="outlined"
@@ -155,11 +159,13 @@ const DCandidateForm = ({ classes, ...props }) => {
                     />
 
                     <TextField
+                        id="date"
                         name="fechaNacimiento"
                         variant="outlined"
                         label="Fecha de Nacimiento"
                         type="date"
-                        defaultValue={values.fechaNacimiento}
+                        value={values.fechaNacimiento}
+                        defaultValue={"2017-05-24"}
                         onChange={handleInputChange}
                         {...(errors.numDocumento && { error: true, helperText: errors.numDocumento })}
                         
@@ -167,14 +173,16 @@ const DCandidateForm = ({ classes, ...props }) => {
                             shrink: true,
                         }}
                     />
+
                 </Grid>
-                <Grid item xs={6}>
+                <hr/>
+                <Grid item xs={0}>
 
                     <FormControl variant="outlined"
                         className={classes.formControl}
                         {...(errors.contactoEstrecho1 && { error: true })}
-                    ><label>Tuvo contacto extrecho</label>
-                        <InputLabel ref={inputLabel}>con algún paciente</InputLabel>
+                    >
+                        <InputLabel ref={inputLabel}>Tuvo contacto estrecho con algún paciente</InputLabel>
                         <Select
                             name="contactoEstrecho1"
                             value={values.contactoEstrecho1}
@@ -188,12 +196,11 @@ const DCandidateForm = ({ classes, ...props }) => {
                         {errors.contactoEstrecho1 && <FormHelperText>{errors.contactoEstrecho1}</FormHelperText>}
                     </FormControl>
 
-
                     <FormControl variant="outlined"
                         className={classes.formControl}
                         {...(errors.viajo && { error: true })}
-                    ><label>Viajó a áreas de </label>
-                        <InputLabel ref={inputLabel}>Circulación del Covid-19</InputLabel>
+                    >
+                        <InputLabel ref={inputLabel}>Viajó a áreas de Circulación del Covid-19</InputLabel>
                         <Select
                             name="viajo"
                             value={values.viajo}
@@ -207,51 +214,50 @@ const DCandidateForm = ({ classes, ...props }) => {
                         {errors.viajo && <FormHelperText>{errors.viajo}</FormHelperText>}
                     </FormControl>
 
-                    
-                        <FormControl variant="outlined"
-                            className={classes.formControl}
-                            {...(errors.viajeNivel && { error: true })}
-                        ><label>Viajó a nivel </label>
-                            <InputLabel ref={inputLabel}>Nacional o Internacional</InputLabel>
-                            <Select
-                                name="viajeNivel"
-                                value={values.viajeNivel}
-                                onChange={handleInputChange}
-                                labelWidth={labelWidth}
-                            >
-                                <MenuItem value="">Seleccione</MenuItem>
-                                <MenuItem value="NAC">Nacional</MenuItem>
-                                <MenuItem value="INT">Internacional</MenuItem>
-                            </Select>
-                            {errors.viajeNivel && <FormHelperText>{errors.viajeNivel}</FormHelperText>}
-                        </FormControl> 
-                        
-                    
-                        <TextField
-                            name="destino"
-                            variant="outlined"
-                            label="Cuál fue el destino"
-                            value={values.destino}
+
+                    <FormControl variant="outlined"
+                        className={classes.formControl}
+                        {...(errors.viajeNivel && { error: true })}
+                    >
+                        <InputLabel ref={inputLabel}>Viajó a nivel a Nacional o Internacional</InputLabel>
+                        <Select
+                            name="viajeNivel"
+                            value={values.viajeNivel}
                             onChange={handleInputChange}
-                            {...(errors.destino && { error: true, helperText: errors.destino })}
-                        /> 
+                            labelWidth={labelWidth}
+                        >
+                            <MenuItem value="">Seleccione</MenuItem>
+                            <MenuItem value="NAC">Nacional</MenuItem>
+                            <MenuItem value="INT">Internacional</MenuItem>
+                        </Select>
+                        {errors.viajeNivel && <FormHelperText>{errors.viajeNivel}</FormHelperText>}
+                    </FormControl>
 
 
-                    <div>
+                    <TextField
+                        name="destino"
+                        variant="outlined"
+                        label="Cuál fue el destino"
+                        value={values.destino}
+                        onChange={handleInputChange}
+                        {...(errors.destino && { error: true, helperText: errors.destino })}
+                    />
+
+                    <div align="center">
                         <Button
                             variant="contained"
                             color="primary"
                             type="submit"
                             className={classes.smMargin}
                         >
-                            Submit
+                            Enviar
                         </Button>
                         <Button
                             variant="contained"
                             className={classes.smMargin}
                             onClick={resetForm}
                         >
-                            Reset
+                            Limpiar
                         </Button>
                     </div>
                 </Grid>
@@ -262,7 +268,7 @@ const DCandidateForm = ({ classes, ...props }) => {
 
 
 const mapStateToProps = state => ({
-    dCandidateList: state.dPaciente.list
+    dCandidateList: state.dCandidate.list
 })
 
 const mapActionToProps = {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions/dPaciente";
+import * as actions from "../actions/dCandidate";
 import { Grid, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, withStyles, ButtonGroup, Button } from "@material-ui/core";
-import DCandidateForm from "./DPacienteForm";
+import DCandidateForm from "./DCandidateForm";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useToasts } from "react-toast-notifications";
@@ -32,23 +32,29 @@ const DCandidates = ({ classes, ...props }) => {
     const { addToast } = useToasts()
 
     const onDelete = id => {
-        if (window.confirm('¿Estás seguro de eliminar este registro??'))
-            props.deleteDCandidate(id,()=>addToast("Borrado exitosamente", { appearance: 'info' }))
+        if (window.confirm('Are you sure to delete this record?'))
+            props.deleteDCandidate(id,()=>addToast("Deleted successfully", { appearance: 'info' }))
     }
     return (
         <Paper className={classes.paper} elevation={3}>
             <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <DCandidateForm {...({ currentId, setCurrentId })} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                     <TableContainer>
                         <Table>
                             <TableHead className={classes.root}>
                                 <TableRow>
-                                    <TableCell>Nombres</TableCell>
+                                    <TableCell>Nombre</TableCell>
                                     <TableCell>Apellidos</TableCell>
-                                    <TableCell>Número de Documento</TableCell>
+                                    <TableCell>Tipo</TableCell>
+                                    <TableCell>Documento</TableCell>
+                                    <TableCell>Fecha de Nacimiento</TableCell>
+                                    <TableCell>Contacto Estrecho</TableCell>
+                                    <TableCell>Viajo</TableCell>
+                                    <TableCell>Nivel</TableCell>
+                                    <TableCell>Destino</TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
@@ -59,6 +65,12 @@ const DCandidates = ({ classes, ...props }) => {
                                             <TableCell>{record.nombres}</TableCell>
                                             <TableCell>{record.apellidos}</TableCell>
                                             <TableCell>{record.tipoDocumento}</TableCell>
+                                            <TableCell>{record.numDocumento}</TableCell>
+                                            <TableCell>{record.fechaNacimiento}</TableCell>
+                                            <TableCell>{record.contactoEstrecho1}</TableCell>
+                                            <TableCell>{record.viajo}</TableCell>
+                                            <TableCell>{record.viajeNivel}</TableCell>
+                                            <TableCell>{record.destino}</TableCell>
                                             <TableCell>
                                                 <ButtonGroup variant="text">
                                                     <Button><EditIcon color="primary"
@@ -80,7 +92,7 @@ const DCandidates = ({ classes, ...props }) => {
 }
 
 const mapStateToProps = state => ({
-    dCandidateList: state.dPaciente.list
+    dCandidateList: state.dCandidate.list
 })
 
 const mapActionToProps = {

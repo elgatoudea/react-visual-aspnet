@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { store } from "./actions/store";
 import { Provider } from "react-redux";
-import DPacientes from './components/DPacientes';
+import DCandidates from './components/DCandidates';
 import { Container } from "@material-ui/core";
 import { ToastProvider } from "react-toast-notifications";
 
@@ -12,7 +12,7 @@ function App() {
     <Provider store={store}>
       <ToastProvider autoDismiss={true}>
         <Container maxWidth="lg">
-          <DPacientes />
+          <DCandidates />
         </Container>
       </ToastProvider>
     </Provider>
@@ -20,3 +20,4 @@ function App() {
 }
 
 export default App;
+
